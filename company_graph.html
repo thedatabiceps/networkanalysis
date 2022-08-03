@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@latest/styles/vis-network.css" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1400px;
+            height: 800px;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "black"}, "id": "root", "label": "root", "shape": "dot", "size": 10}, {"color": "#002561", "font": {"color": "black"}, "id": "Ericsson", "label": "Ericsson", "shape": "dot", "size": 38, "title": "19"}, {"color": "#002561", "font": {"color": "black"}, "id": "Amazon", "label": "Amazon", "shape": "dot", "size": 22, "title": "11"}, {"color": "#002561", "font": {"color": "black"}, "id": "Tata Consultancy Services", "label": "Tata Consultancy Services", "shape": "dot", "size": 20, "title": "10"}, {"color": "#002561", "font": {"color": "black"}, "id": "The University of Texas at Dallas", "label": "The University of Texas at Dallas", "shape": "dot", "size": 20, "title": "10"}, {"color": "#002561", "font": {"color": "black"}, "id": "EY", "label": "EY", "shape": "dot", "size": 12, "title": "6"}, {"color": "#002561", "font": {"color": "black"}, "id": "Walmart", "label": "Walmart", "shape": "dot", "size": 10, "title": "5"}, {"color": "#002561", "font": {"color": "black"}, "id": "Walmart Global Tech", "label": "Walmart Global Tech", "shape": "dot", "size": 10, "title": "5"}, {"color": "#002561", "font": {"color": "black"}, "id": "VC ERP Consulting", "label": "VC ERP Consulting", "shape": "dot", "size": 8, "title": "4"}, {"color": "#002561", "font": {"color": "black"}, "id": "Tesla", "label": "Tesla", "shape": "dot", "size": 6, "title": "3"}, {"color": "#002561", "font": {"color": "black"}, "id": "Softvan Pvt Ltd", "label": "Softvan Pvt Ltd", "shape": "dot", "size": 6, "title": "3"}, {"color": "#002561", "font": {"color": "black"}, "id": "Cognizant", "label": "Cognizant", "shape": "dot", "size": 6, "title": "3"}, {"color": "#002561", "font": {"color": "black"}, "id": "FedEx Services", "label": "FedEx Services", "shape": "dot", "size": 6, "title": "3"}, {"color": "#002561", "font": {"color": "black"}, "id": "Sarjen Systems Pvt. Ltd.", "label": "Sarjen Systems Pvt. Ltd.", "shape": "dot", "size": 6, "title": "3"}, {"color": "#002561", "font": {"color": "black"}, "id": "SPEC INDIA", "label": "SPEC INDIA", "shape": "dot", "size": 6, "title": "3"}]);
+        edges = new vis.DataSet([{"color": "black", "from": "root", "label": 1, "to": "Ericsson", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Amazon", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Tata Consultancy Services", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "The University of Texas at Dallas", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "EY", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Walmart", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Walmart Global Tech", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "VC ERP Consulting", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Tesla", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Softvan Pvt Ltd", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Cognizant", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "FedEx Services", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Sarjen Systems Pvt. Ltd.", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "SPEC INDIA", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "hierarchicalRepulsion": {
+            "centralGravity": 0.0,
+            "damping": 0.09,
+            "nodeDistance": 120,
+            "springConstant": 0.01,
+            "springLength": 100
+        },
+        "solver": "hierarchicalRepulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

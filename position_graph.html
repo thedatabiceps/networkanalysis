@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@latest/styles/vis-network.css" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1400px;
+            height: 800px;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "black"}, "id": "root", "label": "root", "shape": "dot", "size": 10}, {"color": "#002561", "font": {"color": "black"}, "id": "Software Engineer", "label": "Software Engineer", "shape": "dot", "size": 12, "title": "12"}, {"color": "#002561", "font": {"color": "black"}, "id": "Business Analyst", "label": "Business Analyst", "shape": "dot", "size": 7, "title": "7"}, {"color": "#002561", "font": {"color": "black"}, "id": "Software Developer", "label": "Software Developer", "shape": "dot", "size": 7, "title": "7"}, {"color": "#002561", "font": {"color": "black"}, "id": "Software Engineer Intern", "label": "Software Engineer Intern", "shape": "dot", "size": 6, "title": "6"}, {"color": "#002561", "font": {"color": "black"}, "id": "Data Analyst", "label": "Data Analyst", "shape": "dot", "size": 5, "title": "5"}, {"color": "#002561", "font": {"color": "black"}, "id": "Data Science Intern", "label": "Data Science Intern", "shape": "dot", "size": 5, "title": "5"}, {"color": "#002561", "font": {"color": "black"}, "id": "Intern", "label": "Intern", "shape": "dot", "size": 4, "title": "4"}, {"color": "#002561", "font": {"color": "black"}, "id": "Data Scientist", "label": "Data Scientist", "shape": "dot", "size": 4, "title": "4"}, {"color": "#002561", "font": {"color": "black"}, "id": "Assistant System Engineer", "label": "Assistant System Engineer", "shape": "dot", "size": 4, "title": "4"}, {"color": "#002561", "font": {"color": "black"}, "id": "Graduate Teaching Assistant", "label": "Graduate Teaching Assistant", "shape": "dot", "size": 4, "title": "4"}, {"color": "#002561", "font": {"color": "black"}, "id": "Senior Software Engineer", "label": "Senior Software Engineer", "shape": "dot", "size": 4, "title": "4"}, {"color": "#002561", "font": {"color": "black"}, "id": "Talent Acquisition Specialist", "label": "Talent Acquisition Specialist", "shape": "dot", "size": 3, "title": "3"}, {"color": "#002561", "font": {"color": "black"}, "id": "Student", "label": "Student", "shape": "dot", "size": 3, "title": "3"}, {"color": "#002561", "font": {"color": "black"}, "id": "Data Analyst Intern", "label": "Data Analyst Intern", "shape": "dot", "size": 3, "title": "3"}, {"color": "#002561", "font": {"color": "black"}, "id": "Director", "label": "Director", "shape": "dot", "size": 3, "title": "3"}, {"color": "#002561", "font": {"color": "black"}, "id": "Managing Director", "label": "Managing Director", "shape": "dot", "size": 3, "title": "3"}, {"color": "#002561", "font": {"color": "black"}, "id": "Consultant", "label": "Consultant", "shape": "dot", "size": 3, "title": "3"}, {"color": "#002561", "font": {"color": "black"}, "id": "Summer Intern", "label": "Summer Intern", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Assistant Professor", "label": "Assistant Professor", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Design Verification Engineer", "label": "Design Verification Engineer", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Business Development Executive", "label": "Business Development Executive", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "CEO", "label": "CEO", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Data Engineer Intern", "label": "Data Engineer Intern", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Software Development Engineer", "label": "Software Development Engineer", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "HR Executive", "label": "HR Executive", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Chief Executive Officer", "label": "Chief Executive Officer", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Product Manager", "label": "Product Manager", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Co-Founder", "label": "Co-Founder", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Electrical Engineer", "label": "Electrical Engineer", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Manager", "label": "Manager", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Senior Consultant", "label": "Senior Consultant", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Business Intelligence Engineer", "label": "Business Intelligence Engineer", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Technical Recruiter", "label": "Technical Recruiter", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Data Engineer", "label": "Data Engineer", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Software Developer Intern", "label": "Software Developer Intern", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Machine Learning Engineer", "label": "Machine Learning Engineer", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Associate Software Engineer", "label": "Associate Software Engineer", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Project Intern", "label": "Project Intern", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Marketing Executive", "label": "Marketing Executive", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Associate Consultant", "label": "Associate Consultant", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "Engineering Intern", "label": "Engineering Intern", "shape": "dot", "size": 2, "title": "2"}, {"color": "#002561", "font": {"color": "black"}, "id": "System Administrator", "label": "System Administrator", "shape": "dot", "size": 2, "title": "2"}]);
+        edges = new vis.DataSet([{"color": "black", "from": "root", "label": 1, "to": "Software Engineer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Business Analyst", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Software Developer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Software Engineer Intern", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Data Analyst", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Data Science Intern", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Intern", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Data Scientist", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Assistant System Engineer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Graduate Teaching Assistant", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Senior Software Engineer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Talent Acquisition Specialist", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Student", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Data Analyst Intern", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Director", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Managing Director", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Consultant", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Summer Intern", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Assistant Professor", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Design Verification Engineer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Business Development Executive", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "CEO", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Data Engineer Intern", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Software Development Engineer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "HR Executive", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Chief Executive Officer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Product Manager", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Co-Founder", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Electrical Engineer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Manager", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Senior Consultant", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Business Intelligence Engineer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Technical Recruiter", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Data Engineer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Software Developer Intern", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Machine Learning Engineer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Associate Software Engineer", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Project Intern", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Marketing Executive", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Associate Consultant", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "Engineering Intern", "weight": 1}, {"color": "black", "from": "root", "label": 1, "to": "System Administrator", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "hierarchicalRepulsion": {
+            "centralGravity": 0.0,
+            "damping": 0.09,
+            "nodeDistance": 120,
+            "springConstant": 0.01,
+            "springLength": 100
+        },
+        "solver": "hierarchicalRepulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
